@@ -9,6 +9,9 @@ from urllib.parse import urlparse
 # ---------------------------------------------------
 # Function
 # ---------------------------------------------------
+def url_branch_list(_url:str) -> list:
+    pass
+
 def url_check(_url:str) -> bool:
     parsed = urlparse(_url)
     paths = parsed.path.strip("/").split("/")
