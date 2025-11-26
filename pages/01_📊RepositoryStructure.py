@@ -4,6 +4,7 @@
 # Import module
 # ---------------------------------------------------
 import streamlit as st
+import module.github as github
 
 # ---------------------------------------------------
 # Get session state
@@ -29,6 +30,7 @@ st.title("Repositorie Radar")
 st.write("GitHub 저장소를 자동 분석하는 웹 기반 오픈소스 탐색 도구입니다.")
 
 st.header("📊Repository Structure")
-# 아래 2줄은 디버깅 용입니다 api, url 변수 활용 하세요(이 줄은 지우시고요)
-st.write("api_token : " + api_token)
-st.write("repository_url : " + repository_url)
+st.code(github.url_tree_string(repository_url)) 
+
+st.header("AI Comment")
+st.code("@@@ 여기에 위 파일 트리를 input 으로 한 GPT/Gemini output 코멘트 @@@")

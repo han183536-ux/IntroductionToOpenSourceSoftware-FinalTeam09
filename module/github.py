@@ -4,23 +4,25 @@
 # Import module
 # ---------------------------------------------------
 import requests
-import json
 from urllib.parse import urlparse
 
 # ---------------------------------------------------
 # Function
 # ---------------------------------------------------
+def url_branch_list(_url:str) -> list:
+    pass
+
 def url_check(_url:str) -> bool:
     parsed = urlparse(_url)
     paths = parsed.path.strip("/").split("/")
-    owner = paths[0]
-    repo = paths[1]
     if parsed.scheme not in ("https"):
         return False
     if parsed.netloc != "github.com":
         return False
     if len(paths) < 2:
         return False
+    owner = paths[0]
+    repo = paths[1]
     if not owner or not repo:
         return False
     return True
@@ -95,6 +97,7 @@ def url_tree_string(_url:str) -> str:
                 key = keys[i]
                 is_last_child = (i == len(keys)-1)
                 stack.append((node[key], key, depth_info + [is_last_child]))
+    tree_string = "Root\n"+tree_string
     return tree_string
 
 # ---------------------------------------------------
