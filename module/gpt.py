@@ -9,8 +9,8 @@ from openai import OpenAI
 # Function
 # ---------------------------------------------------
 def api_check(_key:str) -> bool:
-    client = OpenAI(api_key=_key)
     try:
+        client = OpenAI(api_key=_key)
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -36,10 +36,10 @@ def api_check(_key:str) -> bool:
         # print(e)
         return False
 
-def api_repository_structure(_key:str, _file_tree:dict, _language:str="Korean") -> str:
-    client = OpenAI(api_key=_key)
+def api_repository_structure(_key:str, _file_tree:dict, _language:str="English") -> str:
     parsed_file_tree = str(_file_tree)
     try:
+        client = OpenAI(api_key=_key)
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
