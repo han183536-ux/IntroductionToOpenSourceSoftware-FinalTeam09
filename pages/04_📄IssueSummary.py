@@ -18,8 +18,8 @@ contents = st.session_state["contents"]
 # Sidebar(API,URL input)
 # ---------------------------------------------------
 st.sidebar.title("Input")
-api_key = st.sidebar.text_input("GPT/Gemini API token", value=options["api_key"], type="password", disabled=True)
-repository_url = st.sidebar.text_input("Github repository url", value=options["repository_url"], disabled=True)
+api_key = st.sidebar.text_input("🔑 GPT/Gemini API token", value=options["api_key"], type="password", disabled=True)
+repository_url = st.sidebar.text_input("📊 GitHub Repository URL", value=options["repository_url"], disabled=True)
 
 # ---------------------------------------------------
 # Page
