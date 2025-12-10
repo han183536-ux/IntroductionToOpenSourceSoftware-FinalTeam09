@@ -5,12 +5,42 @@
 # ---------------------------------------------------
 import requests
 from urllib.parse import urlparse
+import base64
 
 # ---------------------------------------------------
 # Function
 # ---------------------------------------------------
 def url_branch_list(_url:str) -> list:
-    pass
+    if not url_check(_url):
+        return []
+
+    parsed = urlparse(_url)
+    owner, repo = parsed.path.strip("/").split("/")[:2]
+    branch_api = "https://api.github.com/repos/"+owner+"/"+repo+"/branches" 
+
+    response = requests.get(branch_api)
+    if response.status_code != 200:
+        return []
+
+    branches = response.json()
+    return [branch["name"] for branch in branches]
+
+def url_readme_string(_url:str) -> str:
+    parsed = urlparse(_url)
+    owner, repo = parsed.path.strip("/").split("/")[:2]
+    readme_api = "https://api.github.com/repos/"+owner+"/"+repo+"/readme"
+
+    response = requests.get(readme_api)
+    if response.status_code != 200:
+        return None
+
+    data = response.json()
+    if "content" not in data:
+        return None
+
+    readme_bytes = base64.b64decode(data["content"])
+
+    return readme_bytes.decode("utf-8", errors="ignore")
 
 def url_check(_url:str) -> bool:
     parsed = urlparse(_url)
@@ -105,5 +135,5 @@ def url_tree_string(_url:str) -> str:
 # ---------------------------------------------------
 if __name__=="__main__":
     url = "https://github.com/minjunkim0205/Development-RepositorieRadar"
-    tree = str(url_tree_dict(url))
-    print(tree, end="")
+    output = url_branch_list(url)
+    print(output, end="")
